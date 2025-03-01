@@ -3,7 +3,10 @@ echo "Updating system..."
 sudo apt-get update && sudo apt-get upgrade -y
 
 echo "Installing basic tools..."
-sudo apt-get install -y vim git zsh curl wget gpg apt-transport-https
+sudo apt-get install -y vim git zsh curl wget gpg apt-transport-https docker.io docker-compose
+if [ -x "$(command -v docker)" ]; then
+  sudo usermod -aG docker $USER
+fi
 
 echo "Installing Google Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -12,15 +15,17 @@ sudo apt-get install -f -y
 rm google-chrome-stable_current_amd64.deb
 
 echo "Installing VS Code..."
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-sudo apt-get update
-sudo apt-get install -y code
+wget -O vscode.deb https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+sudo dpkg -i vscode.deb
+rm vscode.deb
 
 echo "Installing Snap packages..."
-sudo apt-get install -y snapd
+
+if ! [ -x "$(command -v snap)" ]; then
+  echo "Installing snapd..."
+  sudo apt-get install -y snapd
+fi
+
 sudo snap install discord
 sudo snap install spotify
 sudo snap install brave
@@ -40,5 +45,25 @@ chsh -s $(which zsh)
 
 echo "Changing Oh My Zsh theme to bira..."
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' ~/.zshrc
+
+echo "Setting dark theme..."
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+
+echo "Showing seconds on the clock..."
+gsettings set org.gnome.desktop.interface clock-show-seconds true
+
+echo "Changing display resolution to 1920x1080..."
+xrandr --output $(xrandr | grep ' connected' | cut -f1 -d ' ') --mode 1920x1080
+
+echo "Configuring terminal settings..."
+gsettings set org.gnome.Terminal.Legacy.Settings default-size-columns 64
+gsettings set org.gnome.Terminal.Legacy.Settings default-size-rows 16
+gsettings set org.gnome.desktop.interface monospace-font-name 'Custom 9'
+
+echo "Setting lock screen shortcut to Ctrl + Alt + L..."
+gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Control><Alt>l'
+
+echo "Creating slock command..."
+echo 'alias slock="gnome-screensaver-command -l"' >> ~/.zshrc
 
 echo "Setup complete! Please log out and log back in for all changes to take effect."
