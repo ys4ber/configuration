@@ -15,7 +15,7 @@ This repository contains configuration files for various applications and enviro
 To install the configurations, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/configuration.git
+git clone git@github.com:ys4ber/configuration.git
 ```
 
 Navigate to the configuration directory:
