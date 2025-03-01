@@ -66,4 +66,8 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Control
 echo "Creating slock command..."
 echo 'alias slock="gnome-screensaver-command -l"' >> ~/.zshrc
 
+echo "Installing Node.js and npm..."
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt-get install -y nodejs npm
+
 echo "Setup complete! Please log out and log back in for all changes to take effect."
