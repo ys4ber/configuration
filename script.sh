@@ -63,8 +63,8 @@ gsettings set org.gnome.desktop.interface monospace-font-name 'Custom 9'
 echo "Setting lock screen shortcut to Ctrl + Alt + L..."
 gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Control><Alt>l'
 
-echo "Creating slock command..."
-echo 'alias slock="gnome-screensaver-command -l"' >> ~/.zshrc
+echo "Creating slock command..." # this is locking the screen and mute the machine "
+echo "alias slock='gnome-screensaver-command -l && pactl set-sink-volume @DEFAULT_SINK@ 0%'" >> ~/.zshrc && source ~/.zshrc
 
 echo "Installing Node.js and npm..."
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
