@@ -42,34 +42,34 @@ ssh-add ~/.ssh/id_ed25519
 echo "Your SSH public key is:"
 cat ~/.ssh/id_ed25519.pub
 
-echo "Setting ZSH as default shell..."
-chsh -s $(which zsh)
+#echo "Setting ZSH as default shell..."
+#chsh -s $(which zsh)
 
 echo "Changing Oh My Zsh theme to bira..."
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/' ~/.zshrc
 
-echo "Setting dark theme..."
-gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+#echo "Setting dark theme..."
+#gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
-echo "Showing seconds on the clock..."
-gsettings set org.gnome.desktop.interface clock-show-seconds true
+#echo "Showing seconds on the clock..."
+#gsettings set org.gnome.desktop.interface clock-show-seconds true
 
-echo "Changing display resolution to 1920x1080..."
-xrandr --output $(xrandr | grep ' connected' | cut -f1 -d ' ') --mode 1920x1080
+#echo "Changing display resolution to 1920x1080..."
+#xrandr --output $(xrandr | grep ' connected' | cut -f1 -d ' ') --mode 1920x1080
 
-echo "Configuring terminal settings..."
-gsettings set org.gnome.Terminal.Legacy.Settings default-size-columns 64
-gsettings set org.gnome.Terminal.Legacy.Settings default-size-rows 16
-gsettings set org.gnome.desktop.interface monospace-font-name 'Custom 9'
+#echo "Configuring terminal settings..."
+#gsettings set org.gnome.Terminal.Legacy.Settings default-size-columns 64
+#gsettings set org.gnome.Terminal.Legacy.Settings default-size-rows 16
+#gsettings set org.gnome.desktop.interface monospace-font-name 'Custom 9'
 
-echo "Setting lock screen shortcut to Ctrl + Alt + L..."
-gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Control><Alt>l'
+#echo "Setting lock screen shortcut to Ctrl + Alt + L..."
+#gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Control><Alt>l'
 
-echo "Creating slock command..." # this is locking the screen and mute the machine "
-echo "alias slock='gnome-screensaver-command -l && pactl set-sink-volume @DEFAULT_SINK@ 0%'" >> ~/.zshrc && source ~/.zshrc
+#echo "Creating slock command..." # this is locking the screen and mute the machine "
+#echo "alias slock='gnome-screensaver-command -l && pactl set-sink-volume @DEFAULT_SINK@ 0%'" >> ~/.zshrc && source ~/.zshrc
 
-echo "Installing Node.js and npm..."
-curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+echo "Installing Node.js 20.x and npm ..."
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs npm
 
 echo "Setup complete! Please log out and log back in for all changes to take effect."
