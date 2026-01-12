@@ -4,7 +4,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 echo "Installing basic tools..."
 sudo apt-get install -y vim git zsh curl wget gpg apt-transport-https docker.io \
-  docker-compose gnome-screensaver net-tools
+  docker-compose-v2 gnome-screensaver net-tools podman
 if [ -x "$(command -v docker)" ]; then
   sudo usermod -aG docker $USER
 fi
